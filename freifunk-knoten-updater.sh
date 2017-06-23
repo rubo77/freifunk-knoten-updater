@@ -22,7 +22,8 @@ function go(){
 
     #logread |grep -v "fastd" & logread -f |grep -v "fastd"
 
-    # update
+    # update all nodes
+    # adapt your version and folder here:
     FW=2016.2.6
     cd /var/www/freifunk/firmware/ffki/$FW/stable/
     MODEL=$(ssh root@$ROUTER_IP "lua -e 'print(require(\"platform_info\").get_image_name())'")
@@ -33,7 +34,7 @@ function go(){
       echo start upgrade
       ssh $ROUTER_IP sysupgrade /tmp/$FILENAME
     else
-      echo error
+      echo $FILENAME not found
       exit
     fi
 
